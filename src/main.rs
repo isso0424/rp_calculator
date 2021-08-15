@@ -2,6 +2,7 @@ use clap::Clap;
 use std::fs::File;
 use std::io::{stdin, BufRead, BufReader};
 
+// Command line arguments
 #[derive(Clap, Debug)]
 #[clap(
     name = "My RPN program",
@@ -31,6 +32,9 @@ fn main() {
     }
 }
 
+// Command runner
+// R: RPN format formula stream
+//   ex: Text file, Standard Input, etc...
 fn run<R: BufRead>(reader: R, verbose: bool) {
     for line in reader.lines() {
         if let Ok(line) = line {
