@@ -23,12 +23,16 @@ fn main() {
         let f = File::open(path).unwrap();
         let reader = BufReader::new(f);
 
-        for line in reader.lines() {
-            if let Ok(line) = line {
-                println!("{}", line);
-            }
-        }
+        run(reader, opts.verbose);
     } else {
         println!("No file is specified");
+    }
+}
+
+fn run(reader: BufReader<File>, verbose: bool) {
+    for line in reader.lines() {
+        if let Ok(line) = line {
+            println!("{}", line);
+        }
     }
 }
