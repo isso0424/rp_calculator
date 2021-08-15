@@ -17,6 +17,20 @@ struct Opts {
     formula_file: Option<String>,
 }
 
+// Calculator
+struct RpnCalculator(bool);
+
+impl RpnCalculator {
+    pub fn new(verbose: bool) -> Self {
+        Self(verbose)
+    }
+
+    // TODO: calculate logic
+    pub fn eval(&self, formula: &str) -> i32 {
+        0
+    }
+}
+
 fn main() {
     let opts = Opts::parse();
 
@@ -36,9 +50,13 @@ fn main() {
 // R: RPN format formula stream
 //   ex: Text file, Standard Input, etc...
 fn run<R: BufRead>(reader: R, verbose: bool) {
+    let calculator = RpnCalculator::new(verbose);
     for line in reader.lines() {
         if let Ok(line) = line {
-            println!("{}", line);
+            let ans = calculator.eval(&line);
+            println!("{}", ans);
+        } else if let Err(err) = line {
+            eprintln!("{}", err);
         }
     }
 }
